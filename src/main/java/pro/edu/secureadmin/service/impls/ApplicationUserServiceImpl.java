@@ -28,6 +28,7 @@ public class ApplicationUserServiceImpl implements IApplicationUserService {
     private PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
+   // private PasswordEncoder passwordEncoder(){  return new BCryptPasswordEncoder(10);}
 
     private List<ApplicationUser> list = new ArrayList<>(
 
@@ -40,11 +41,17 @@ public class ApplicationUserServiceImpl implements IApplicationUserService {
                             , true
                             , true
                             ,true),
-                   new ApplicationUser(DOCTOR.getGrantedAuthorities(), passwordEncoder().encode("doctor"), "doctor", true, true, true, true)
+                   new ApplicationUser(DOCTOR.getGrantedAuthorities()
+                           , passwordEncoder().encode("doctor")
+                           , "doctor"
+                           , true
+                           , true
+                           , true
+                           , true)
             )
     );
 
-    @PostConstruct
+  //  @PostConstruct
     void init(){
         repository.saveAll(list);
     }
@@ -53,7 +60,8 @@ public class ApplicationUserServiceImpl implements IApplicationUserService {
 
     @Override
     public ApplicationUser create(ApplicationUser applicationUser) {
-        return null;
+
+        return repository.save(applicationUser);
     }
 
     @Override
@@ -73,6 +81,6 @@ public class ApplicationUserServiceImpl implements IApplicationUserService {
 
     @Override
     public List<ApplicationUser> getAll() {
-        return null;
+        return repository.findAll();
     }
 }

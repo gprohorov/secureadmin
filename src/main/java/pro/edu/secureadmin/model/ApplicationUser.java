@@ -47,6 +47,14 @@ public class ApplicationUser implements UserDetails {
         this.enabled = enabled;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
